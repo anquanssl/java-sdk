@@ -53,7 +53,14 @@ public class HttpBuildQuery {
             if (s != null) {
                 result.append(s);
             } else {
-                result.append(c);
+                // append urlencoded c char into result
+                try {
+                    result.append(URLEncoder.encode(c, "UTF-8"));
+                } catch (UnsupportedEncodingException e) {
+                    result.append(c);
+                    // todo: log error
+                    e.printStackTrace();
+                }
             }
         }
 
